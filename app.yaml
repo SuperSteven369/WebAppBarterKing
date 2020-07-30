@@ -1,0 +1,14 @@
+runtime: nodejs10
+
+instance_class: F2
+
+env_variables:
+  BUCKET_NAME: "example-gcs-bucket"
+
+handlers:
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /.*
+  http_headers: 
+    Access-Control-Allow-Origin: "*"

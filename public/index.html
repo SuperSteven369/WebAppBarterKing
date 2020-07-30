@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Box</title>
+    <meta name="viewport" content="width=device-width", initial-scale=1">
+    <link rel ="stylesheet" type ="text/css" href ="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <script>
+        function fn1() {
+            var inputStr = document.getElementById("search").value;
+            // alert("String inside the search box is: " + inputStr);
+            sessionStorage.setItem("inputString",inputStr);
+            
+            if (document.getElementById('amazon').checked){sessionStorage.setItem("amazon",'true');
+            } else {sessionStorage.setItem("amazon",'false');}
+            if (document.getElementById('walmart').checked){sessionStorage.setItem("walmart",'true');
+            } else {sessionStorage.setItem("walmart",'false');}
+            if (document.getElementById('ebay').checked){sessionStorage.setItem("ebay",'true');
+            } else {sessionStorage.setItem("ebay",'false');}
+            if (document.getElementById('low').checked){sessionStorage.setItem("low",'true');
+            } else {sessionStorage.setItem("low",'false');}
+            if (document.getElementById('mid').checked){sessionStorage.setItem("mid",'true');
+            } else {sessionStorage.setItem("mid",'false');}
+            if (document.getElementById('high').checked){sessionStorage.setItem("high",'true');
+            } else {sessionStorage.setItem("high",'false');}
+        }
+    </script>
+</head>
+<body>
+    <div class="initialcontainer">
+        <form action="searchResultWithLoader.html">
+            <div class ="caption">
+                <font color="blue">B</font>
+                <font color="red">A</font>
+                <font color="yellow">R</font>
+                <font color="blue">T</font>
+                <font color="green">E</font>
+                <font color="red">R</font>
+                <font color="blue">K</font>
+                <font color="red">I</font>
+                <font color="yellow">N</font>
+                <font color="green">G</font>
+            </div>
+            <div class ="searchBox">
+                <input type ="text" id ="search" placeholder ="What are you looking for?">
+                <input type ="submit" onclick ="fn1()" id ="btn" value ="Go!">
+            </div> 
+            <div class ="sort">
+                <select name="slt-1" id="slt-1">
+                    <option>SORT BY</option>
+                    <option value="1">REVIEW SCORE</option>
+                    <option value="2">PRICE - LOW TO HIGH</option>
+                    <option value="3">PRICE - HIGH TO LOW</option>
+                </select>
+            </div>
+            <div class="contact-info">
+                <div class="card">
+                  <i class="card-icon far fa-envelope"></i>
+                  <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top"><p>sy8745@tamu.edu</p></a>
+                </div>
+          
+                <div class="card">
+                  <i class="card-icon fas fa-phone"></i>
+                  <p>+14093925220</p>
+                </div>
+          
+                <div class="card">
+                  <i class="card-icon fas fa-map-marker-alt"></i>
+                  <p>College Station, TX</p>
+                </div>
+              </div>
+        </form>
+    </div>
+</body>
+</html>

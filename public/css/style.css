@@ -1,0 +1,212 @@
+body {
+    background: white;
+}
+.initialcontainer {
+    max-width: 1000px;
+    margin: auto;
+    margin-top: 350px;
+}
+.caption {
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 100px;
+    text-align: center;
+    margin-top: -100px;
+}
+input[type=text]{
+    width: 90%;
+    padding: 12px;
+    font-family: arial;
+    font-size: 18px;
+    border: 1px solid #0076a3;
+    border-right: 0;
+    border-radius: 5px 0 0 5px;
+    font-style: italic;
+    margin-top: 100px;
+}
+input[type=submit] {
+    position: absolute;
+    padding: 12px;
+    width: 8%;
+    font-family: arial;
+    font-size: 18px;
+    text-shadow: 0 0 1px #000;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    border-right: 0;
+    background: linear-gradient(#00adee,#0078a5);
+    border: 1px solid #0076a3;
+    margin-top: 100px;
+}
+input[type=submit]:hover {
+    background: linear-gradient(#0095cc, #00678e);
+}
+input[type=text]:focus,input[type=submit]:focus {
+    outline: none;
+}
+
+/* SORT BY */
+.sort {
+    position: absolute;
+    margin-left: 500px;
+    margin-top: 70px;
+    transform: translate(-50%, -50%);
+}
+h1 {
+    text-align: center;
+}
+select {
+    display: inline-block;
+    background-color: #358ED7;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 12px 30px;
+    transition: all .5s;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 100%;
+    padding: 0 0 0 .5px;
+    letter-spacing: .8px;
+    cursor: pointer;
+}
+.select::after {
+    content: '\25bc';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 1em;
+    background: #34495e;
+    pointer-events: none;
+}
+.select::hover::after {
+    color:#31a3e4;
+}
+
+/* FILTER */
+.filter_by_seller {
+    position: absolute;
+    margin-left: 500px;
+    margin-top: 175px;
+    transform: translate(-50%, -50%);    
+}
+.filter_by_price {
+    position: absolute;
+    margin-left: 500px;
+    margin-top: 250px;
+    transform: translate(-50%, -50%); 
+}
+p0 {
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    color: #31a3e4;
+}
+p1 {
+    font-size: 22px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    color: #31a3e4;
+}
+
+.contact-info{
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 500px;
+    padding: 0 20px;
+}
+  
+.card {
+    padding: 0 20px;
+    margin: 0 10px;
+    width: calc(33% - 20px);
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+}
+  
+.card-icon {
+    font-size: 28px;
+    background: #ff6348;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px !important;
+    border-radius: 50%;
+    transition: 0.3s linear;
+}
+  
+.card:hover .card-icon{
+    background: none;
+    color: #ff6348;
+    transform: scale(1.6);
+}
+  
+.card p{
+    color: blue;
+    margin-top: 20px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    max-height: 0;
+    opacity: 0;
+    transition: 0.3s linear;
+}
+  
+.card:hover p{
+    max-height: 40px;
+    opacity: 1;
+}
+.loader-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px #31A3E4;
+  border-right: 16px #31A3E4;
+  border-bottom: 16px solid gold;
+  border-left: 16px solid gold;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.loader-text{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 10%;
+  left: 0;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-family: Comic Sans MS, cursive, sans-serif;
+  font-weight: 600;
+  color: #000000;
+}

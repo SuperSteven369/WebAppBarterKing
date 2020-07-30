@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Barter King</title>	
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel ="stylesheet" type ="text/css" href ="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <link rel ="stylesheet" type ="text/css" href ="css/style1.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- Fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+      <!-- CSS -->
+      <link rel ="stylesheet" type ="text/css" href ="css/style1.css">
+  </head>
+
+<!--search bar -->
+<body style="margin:0;">
+	<script type="text/javascript">
+		function fn1() {
+            var inputStr = document.getElementById("search").value;
+            //alert("String inside the search box is: " + inputStr);
+            sessionStorage.setItem("inputString",inputStr);
+            // if (document.getElementById('amazon').checked){sessionStorage.setItem("amazon",'true');
+            // } else {sessionStorage.setItem("amazon",'false');}
+            // if (document.getElementById('walmart').checked){sessionStorage.setItem("walmart",'true');
+            // } else {sessionStorage.setItem("walmart",'false');}
+            // if (document.getElementById('ebay').checked){sessionStorage.setItem("ebay",'true');
+            // } else {sessionStorage.setItem("ebay",'false');}
+        }
+		 var inputStr = sessionStorage.getItem("inputString");
+	</script>
+	<div class="loader-wrapper">
+	  <span class="loader"><span class="loader-inner"></span></span>
+	</div>
+	<div class="loader-text">
+			<span>The King is on a quest to find the best price for your
+	<script type="text/javascript">
+        document.write(inputStr)
+      </script> </span>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src = js/NewApiAccess.js> </script>
+	<script>
+		window.onload = function(){
+			  var input = sessionStorage.getItem("inputString");
+			  var checkAmazon = 'true';
+			  var checkwalmart = 'true';
+			  var checkebay = 'true';
+			  var amazonPrice = null;
+			  var amazonLink = null;
+			  var walmartPrice = null;
+			  var walmartLink = null;
+			  var ebayLink = null;
+			  var ebayPrice = null;
+			  var message = "Click links for description";
+			  if(checkAmazon=='true'){
+
+				var productResults = createJob('amazon',"search_results",input);
+				console.log("post job creation");
+				if( productResults != null) {
+					if(productResults[0] != null){
+					  var title = productResults[0].name;
+					  console.log(title);
+					  var photo = productResults[0].image_url;
+					  var amazonPrice = productResults[0].min_price;
+					  var amazonLink = productResults[0].url;
+					  var product = createJob('amazon',"product",productResults[0].id);
+					  if(product != null){
+						var message = product.description;
+						}
+					 }
+				}
+
+			  }
+
+
+			  if(checkwalmart=='true'){
+				//set title if not set before
+				var productResults = createJob('google_shopping',"search_results",input);
+				if(checkAmazon == 'false' || title == null || message == null){
+					if(productResults != null){
+						var title = productResults[0].name;
+						console.log(title);
+						var photo = productResults[0].image_url;
+						//var product = createJob('google_shopping',"product",productResults[0].id);
+						//var message = product.description;
+					}
+				}
+				if( productResults != null) {
+					if(productResults[0] != null){
+					  var walmartPrice = productResults[0].min_price;
+					  var walmartLink = productResults[0].url;
+					 }
+				}
+			  }
+
+			  if(checkebay=='true'){
+				//set title if not set before
+				var productResults = createJob('ebay',"search_results",input);
+				if((checkAmazon == 'false' && checkwalmart == 'false') || title == null || message == null){
+					if(productResults != null){
+						var title = productResults[0].name;
+						console.log(title);
+						var photo = productResults[0].image_url;
+						//var product = createJob('ebay',"product_and_offers",productResults[0].id);
+						//var message = product.description;
+					}
+				}
+				if( productResults != null) {
+					  if(productResults[0] != null){
+						var ebayPrice = productResults[0].min_price;
+						var ebayLink = productResults[0].url;
+						var product = createJob('ebay',"product_and_offers",productResults[0].id);
+					}
+
+				}
+			  }
+			  if(ebayPrice == null){
+				if(ebayLink != null){
+					ebayPrice = "CLICK LINK FOR PRICE";
+				}
+				else{
+					ebayPrice = "NOT FOUND";
+				}
+				
+			  }
+			  if(amazonPrice == null){
+					if(amazonLink != null){
+						amazonPrice = "CLICK LINK FOR PRICE";
+					}
+					else{
+						amazonPrice = "NOT FOUND";
+					}
+				}
+			  if(walmartPrice == null){
+					if(walmartLink != null){
+						walmartPrice = "CLICK LINK FOR PRICE";
+					}
+					else{
+						walmartPrice = "NOT FOUND";
+					}
+				}
+			  //TODO: make if statements according to the checks
+			  const storeAndPrice = [
+				  { store: 'google-shopping', price: walmartPrice, link: walmartLink },
+				  { store: 'ebay', price: ebayPrice,  link: ebayLink},
+				  { store: 'amazon', price: amazonPrice,  link: amazonLink }
+			  ]
+			  storeAndPrice.sort((a, b) => (a.price > b.price) ? 1 : -1)
+
+			  document.getElementById('product-title').innerHTML = title;
+			  document.getElementById('message').innerHTML = message;
+			  document.getElementById('price0').innerHTML = storeAndPrice[0].price;
+			  document.getElementById('price1').innerHTML = storeAndPrice[1].price;
+			  document.getElementById('price2').innerHTML = storeAndPrice[2].price;
+			  document.getElementById('website-name0').innerHTML = storeAndPrice[0].store;
+			  document.getElementById('website-name1').innerHTML = storeAndPrice[1].store;
+			  document.getElementById('website-name2').innerHTML = storeAndPrice[2].store;
+			  document.getElementById('link0').href = storeAndPrice[0].link;
+			  document.getElementById('link1').href = storeAndPrice[1].link;
+			  document.getElementById('link2').href = storeAndPrice[2].link;
+			  document.getElementById("photo").src = photo;
+			  document.getElementById("message").innerHTML = message;
+			  
+			  $(".loader-wrapper").fadeOut("slow");
+			  $(".loader-text").fadeOut("slow");
+			  document.getElementById("mainContainer").style.visibility = "visible";
+			  document.getElementById("containersearch").style.visibility = "visible";
+
+		};
+	</script>
+	<div class="searchContainer" id="containersearch">
+	  <div class="crown">
+		<img src="img/crown.png" alt="Crown" class="responsive" width="100" height="100">
+	  </div>
+	  <div class="container-search">
+		<form action="searchResultWithLoader.html">
+		<div class ="searchBox">
+					<input type ="text" id ="search" placeholder ="What are you looking for?">
+					<input type ="submit" onclick ="fn1()" id ="btn" value ="Go!">
+		</div>
+		<div class ="sort-result">
+			<select name="slt-1" id="slt-1">
+			  <option>SORT BY</option>
+			  <option value="1">REVIEW SCORE</option>
+			  <option value="2">PRICE - LOW TO HIGH</option>
+			  <option value="3">PRICE - HIGH TO LOW</option>
+			</select>
+		</div>
+		<!-- <div class ="filter_by_seller-result">
+			<p0>SELLER:</p0>
+			<input type ="checkbox" class="chb" id='amazon' checked><p1>Amazon</p1>
+			<input type ="checkbox" class="chb" id='walmart' checked><p1>Walmart</p1>
+			<input type ="checkbox" class="chb" id='ebay' checked><p1>eBay</p1>
+		</div>
+
+		<div class ="filter_by_price-result">
+			<p0>PRICE:</p0>
+			<input type ="checkbox" class="chb" id='low' checked><p1>Up to $100</p1>
+			<input type ="checkbox" class="chb" id='mid' checked><p1>$100 - $1000</p1>
+			<input type ="checkbox" class="chb" id='high' checked><p1>Over $1000</p1>
+		</div> -->
+	  </form>
+	  </div>
+	</div>
+
+	  <!--Main body of search results -->
+
+	  <main class="container" id="mainContainer">
+		  <div class="row">
+		  <!-- Product Photo -->
+			<div class="left-column">
+				<div class="product-description">
+				  <h1 id='product-title'>Airpods Pro</h1>
+				<img id="photo" data-image="img1" class="active" src="img/pods.jpg" alt="">
+				  <p id='message'>AirPods Pro have been designed to deliver Active Noise Cancellation for immersive sound, Transparency mode so you can hear your surroundings, and a customizable fit for all-day comfort. Just like AirPods, AirPods Pro connect magically to your iPhone or Apple Watch. And they’re ready to use right out of the case.</p>
+				</div>
+			</div>
+			<!-- Right Column -->
+			<div class="right-column">
+
+			  <div class="result-box">
+				<div class="product-price">
+				  <span id='price0'>$118.00</span>
+				  <span id ='website-name0'>Amazon</span>
+				  <p>with coupon</p>
+				  <a href="#" id = 'link0' class="cart-btn">Go to Website</a>
+				</div>
+			  </div>
+
+			  <div class="result-box">
+				<div class="product-price">
+				  <span id='price1'>$128.00</span>
+				  <span id ='website-name1'>Google Shopping</span>
+				  <p>with coupon</p>
+				  <a href="#" id = 'link1' class="cart-btn">Go to Website</a>
+				</div>
+			  </div>
+
+			  <div class="result-box">
+				<div class="product-price">
+				  <span id='price2'>$138.00</span>
+				  <span id ='website-name2'>eBay</span>
+				  <p>with coupon</p>
+				  <a href="#" id = 'link2' class="cart-btn">Go to Website</a>
+				</div>
+			  </div>
+
+			</div>
+
+		  </div>
+	  </main>
+
+  
+
+</script>
+</body>
+</html>
